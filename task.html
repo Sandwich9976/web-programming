@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f1f1f1;
+}
+{
+    box-sizing: border-box;
+}
+label{
+	color: black;
+}
+
+input{
+    width: 50%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: white;
+	border: 1px green;
+	border-radius: 5px;
+}
+
+.red{
+	border: 2px solid red;
+	color: red;
+
+}
+.registerbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: black;
+    cursor: pointer;
+    width: 50%;
+    opacity: 0.9;
+}
+</style>
+</head>
+<body>
+
+<form action="test.html">
+
+<input type="checkbox" id="darkmode" name="darkmode">
+  <label for="darkmode">Dark Mode</label>
+  
+<br>
+<a href="test.html">
+<img src="https://dekorimage.ru/upload/iblock/024/024acc364a5d564b0d409d1e8b0968b9.jpg" alt="White tiger" style="width:400px;height:300px;" align="center" vspace="5" hspace="5">
+</a>
+
+<br>
+<h1>Register</h1>
+<br>
+
+<label for="email"><b>Email</b></label>
+<input placeholder="Enter Email" id="email" required>
+
+<br>
+<label for="password"><b>Password</b></label>
+<input placeholder="Enter Password" id="password" required>
+
+<br>
+<label for="psw-repeat"><b>Repeat Password</b></label>
+<input placeholder="Repeat Password" id="psw-repeat" required>
+
+<br>
+<button type="submit" class="registerbtn" id="checker">Register</button>
+</form>
+
+<script src="check.js"></script>
+</body>
+
+</html>
