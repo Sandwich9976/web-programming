@@ -1,31 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
-import {ClassComp} from './ClassComp/ClassComp';
-import {Func} from './Func/Func';
-import {TestFunc} from './TestFunc/TestFunc'
-import {TestFunc_2} from './TestFunc_2/TestFunc_2'
+import { Route, Routes} from 'react-router-dom';
+import React from "react";
+import { MainPart } from './MainPart/MainPart';
+import {createContext, useReducer, useEffect} from 'react'
+import { reducer } from './Reducer';
+import { ASTEROID_DISTANCE_MODE_KM, ASTEROID_SHOW_MODE_ALL } from './AsteroidConstants/AsteroidConstants';
+import { DestructionPage } from './DestructionPage/DestructionPage';
+import { ConvertAPIDataToList, GetAPIUrl } from './MainPart/APIData';
+
+export const AsteroidsContext = createContext(null)
 
 function App() {
+
+  const [state, dispatch] = useReducer(reducer, {
+    asteroidsList:[],
+    destructionList:[],
+    distanceMode: ASTEROID_DISTANCE_MODE_KM,
+    showMode: ASTEROID_SHOW_MODE_ALL
+  })
+
+  useEffect(()=>{
+    fetch(GetAPIUrl())
+    .then((response)=>response.json()
+    .then((resData)=>{
+        dispatch({payload:ConvertAPIDataToList(resData), type:"UPDATE_ASTEROIDS_LIST"})
+    })).catch((error)=>console.log(error))
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Make an Edit <code>src/App.js</code> and become happier.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Reactor here
-        </a>
-      </header>
-      <ClassComp></ClassComp>
-      <Func></Func>
-      <TestFunc/>
-      <TestFunc_2/>
+    <div>
+      <AsteroidsContext.Provider value={{state:state, dispatch:dispatch}}>
+        <Routes>
+          <Route path='/' element={<MainPart />} />
+          <Route path='toDestroy' element={<DestructionPage />} />
+        </Routes>
+      </AsteroidsContext.Provider>
     </div>
   );
 }
